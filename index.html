@@ -1,5 +1,252 @@
 <html>
 
-<h1>🎮︎</h1>
+<head>
+    <title>Gamepad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" ,user-scalable=no, minimum-scale=1.0,
+        maximum-scale=1.0>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+
+            background-color: darkblue;
+            color: white;
+            letter-spacing: 4px;
+            font-size: 28px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media screen and (orientation: portrait) {
+            body {
+                transform-origin: 0 0;
+                transform: rotateZ(90deg) translateY(-100%);
+            }
+
+        }
+
+        .column {
+            width: 100%;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+        }
+
+
+        td {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+
+            background-color: transparent;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="columns" style="display: flex; flex-direction: row; width: 100%; height: 100%;">
+        <div class="column" style="background-color:#aaa;">
+            <div>
+                <table>
+                    <tr>
+                        <td><button id="btn_ar_1">1</button></td>
+                        <td><button id="btn_ar_2">2</button></td>
+                        <td><button id="btn_ar_3">3</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="btn_ar_4">4</button></td>
+                        <td><button id="btn_ar_5">5</button></td>
+                        <td><button id="btn_ar_6">6</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="btn_ar_7">7</button></td>
+                        <td><button id="btn_ar_8">8</button></td>
+                        <td><button id="btn_ar_9">9</button></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div class="column" style="background-color:#bbb;">
+
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <button style="border: 0;width: auto; height: 3rem;font-size: 3rem">🎮</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>8</td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="column" style="background-color:#ccc;">
+            <table>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>D</td>
+                    <td>5</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>J</td>
+                    <td>9</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+
+</body>
+
+<script>
+
+
+
+    (function () {
+
+        function resize() {
+            var body = document.getElementsByTagName('body')[0];
+            var html = document.getElementsByTagName('html')[0];
+            var width = html.clientWidth;
+            var height = html.clientHeight;
+            var max = width > height ? width : height;
+            var min = width > height ? height : width;
+            body.style.width = max + 'px';
+            body.style.height = min + 'px';
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+
+    })();
+
+
+    let intervalId = null;
+
+    const ws = new WebSocket('ws://192.168.0.56:8080');
+
+    ws.onopen = () => {
+
+        console.log('WebSocket 連線成功');
+    };
+
+    ws.onmessage = (event) => {
+
+        console.log('收到訊息:', event.data);
+    };
+
+    ws.onclose = () => {
+        console.log('WebSocket 連線關閉');
+    };
+
+    function sendMessage(msg) {
+
+        ws.send(msg);
+        console.log(`送出：${msg}`);
+    }
+
+
+    const btn_ar_1 = document.getElementById('btn_ar_1');
+    const btn_ar_2 = document.getElementById('btn_ar_2');
+    const btn_ar_3 = document.getElementById('btn_ar_3');
+    const btn_ar_4 = document.getElementById('btn_ar_4');
+    const btn_ar_5 = document.getElementById('btn_ar_5');
+    const btn_ar_6 = document.getElementById('btn_ar_6');
+    const btn_ar_7 = document.getElementById('btn_ar_7');
+    const btn_ar_8 = document.getElementById('btn_ar_8');
+    const btn_ar_9 = document.getElementById('btn_ar_9');
+
+    btn_ar_1.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('1'); }, 100); });
+    btn_ar_2.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('2'); }, 100); });
+    btn_ar_3.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('3'); }, 100); });
+    btn_ar_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('4'); }, 100); });
+    btn_ar_5.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('5'); }, 100); });
+    btn_ar_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('6'); }, 100); });
+    btn_ar_7.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('7'); }, 100); });
+    btn_ar_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('8'); }, 100); });
+    btn_ar_9.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('9'); }, 100); });
+
+    btn_ar_1.addEventListener('mouseup', stopInterval);
+    btn_ar_2.addEventListener('mouseup', stopInterval);
+    btn_ar_3.addEventListener('mouseup', stopInterval);
+    btn_ar_4.addEventListener('mouseup', stopInterval);
+    btn_ar_5.addEventListener('mouseup', stopInterval);
+    btn_ar_6.addEventListener('mouseup', stopInterval);
+    btn_ar_7.addEventListener('mouseup', stopInterval);
+    btn_ar_8.addEventListener('mouseup', stopInterval);
+    btn_ar_9.addEventListener('mouseup', stopInterval);
+
+    btn_ar_1.addEventListener('mouseleave', stopInterval);
+    btn_ar_2.addEventListener('mouseleave', stopInterval);
+    btn_ar_3.addEventListener('mouseleave', stopInterval);
+    btn_ar_4.addEventListener('mouseleave', stopInterval);
+    btn_ar_5.addEventListener('mouseleave', stopInterval);
+    btn_ar_6.addEventListener('mouseleave', stopInterval);
+    btn_ar_7.addEventListener('mouseleave', stopInterval);
+    btn_ar_8.addEventListener('mouseleave', stopInterval);
+    btn_ar_9.addEventListener('mouseleave', stopInterval);
+
+
+
+
+
+
+    function stopInterval() {
+        clearInterval(intervalId);
+        intervalId = null;
+    };
+
+
+    // 防止滑鼠移出按鈕時還繼續 log
+    document.addEventListener('mouseup', stopInterval); // 支援滑鼠放開時已不在按鈕上
+
+</script>
+
+
 
 </html>
