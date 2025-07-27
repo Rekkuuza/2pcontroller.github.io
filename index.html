@@ -64,6 +64,54 @@
             width: 100%;
             height: 100%;
         }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #888;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -96,7 +144,18 @@
             <table>
                 <tr>
                     <td colspan="2">
-                        <button style="border: 0;width: auto; height: 3rem;font-size: 3rem">🎮</button>
+                        <button id="btn_setting" style="border: 0;width: auto; height: 3rem;font-size: 3rem">🎮</button>
+                        <!-- The Modal -->
+                        <div id="myModal" class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <input type="text" id="ip_address" placeholder="IP Address" value="10.97.53.157:8080"
+                                    style="width: 100%; padding: 10px; font-size: 1.5rem;">
+                            </div>
+
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -126,13 +185,17 @@
                     <td>3</td>
                 </tr>
                 <tr>
-                    <td>D</td>
+                    <td>
+                        <button id="btn_act_4">D</button>
+                    </td>
                     <td>5</td>
-                    <td>A</td>
+                    <td>
+                        <button id="btn_act_6">A</button>
+                    </td>
                 </tr>
                 <tr>
                     <td>7</td>
-                    <td>J</td>
+                    <td><button id="btn_act_8">J</button></td>
                     <td>9</td>
                 </tr>
 
@@ -167,8 +230,10 @@
 
 
     let intervalId = null;
+    const ip_address = document.getElementById('ip_address');
 
-    const ws = new WebSocket('ws://192.168.0.56:8080');
+
+    const ws = new WebSocket('ws://' + ip_address.value);
 
     ws.onopen = () => {
 
@@ -185,9 +250,16 @@
     };
 
     function sendMessage(msg) {
+        if (ws.readyState !== WebSocket.CLOSED) {
 
-        ws.send(msg);
-        console.log(`送出：${msg}`);
+            ws.send(msg);
+            console.log(`送出：${msg}`);
+            return;
+        } else {
+            console.error('WebSocket 尚未連線，無法發送訊息');
+            return;
+        }
+
     }
 
 
@@ -200,16 +272,38 @@
     const btn_ar_7 = document.getElementById('btn_ar_7');
     const btn_ar_8 = document.getElementById('btn_ar_8');
     const btn_ar_9 = document.getElementById('btn_ar_9');
+    const btn_act_4 = document.getElementById('btn_act_4');
+    const btn_act_6 = document.getElementById('btn_act_6');
+    const btn_act_8 = document.getElementById('btn_act_8');
+
+    const btn_setting = document.getElementById('btn_setting');
+    const span = document.getElementsByClassName("close")[0];
+    const modal = document.getElementById("myModal");
+
+    btn_setting.onclick = function () {
+        modal.style.display = "block";
+    };
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
     btn_ar_1.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('1'); }, 100); });
-    btn_ar_2.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('2'); }, 100); });
+    btn_ar_2.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('w'); }, 100); });
     btn_ar_3.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('3'); }, 100); });
-    btn_ar_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('4'); }, 100); });
+    btn_ar_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('a'); }, 100); });
     btn_ar_5.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('5'); }, 100); });
-    btn_ar_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('6'); }, 100); });
+    btn_ar_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('d'); }, 100); });
     btn_ar_7.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('7'); }, 100); });
-    btn_ar_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('8'); }, 100); });
+    btn_ar_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('x'); }, 100); });
     btn_ar_9.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('9'); }, 100); });
+    btn_act_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('d'); }, 100); });
+    btn_act_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('a'); }, 100); });
+    btn_act_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('j'); }, 100); });
 
     btn_ar_1.addEventListener('mouseup', stopInterval);
     btn_ar_2.addEventListener('mouseup', stopInterval);
@@ -220,6 +314,11 @@
     btn_ar_7.addEventListener('mouseup', stopInterval);
     btn_ar_8.addEventListener('mouseup', stopInterval);
     btn_ar_9.addEventListener('mouseup', stopInterval);
+    btn_act_4.addEventListener('mouseup', stopInterval);
+    btn_act_6.addEventListener('mouseup', stopInterval);
+    btn_act_8.addEventListener('mouseup', stopInterval);
+
+
 
     btn_ar_1.addEventListener('mouseleave', stopInterval);
     btn_ar_2.addEventListener('mouseleave', stopInterval);
@@ -230,9 +329,15 @@
     btn_ar_7.addEventListener('mouseleave', stopInterval);
     btn_ar_8.addEventListener('mouseleave', stopInterval);
     btn_ar_9.addEventListener('mouseleave', stopInterval);
+    btn_act_4.addEventListener('mouseleave', stopInterval);
+    btn_act_6.addEventListener('mouseleave', stopInterval);
+    btn_act_8.addEventListener('mouseleave', stopInterval);
 
 
-
+    function connectSetting() {
+        // 這裡可以添加連接設定的邏輯
+        console.log('連接設定');
+    }
 
 
 
