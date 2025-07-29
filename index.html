@@ -95,7 +95,7 @@
             margin: auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 50%;
         }
 
         /* The Close Button */
@@ -151,8 +151,11 @@
                             <!-- Modal content -->
                             <div class="modal-content">
                                 <span class="close">&times;</span>
-                                <input type="text" id="ip_address" placeholder="IP Address" value="10.97.53.157:8080"
-                                    style="width: 100%; padding: 10px; font-size: 1.5rem;">
+                                <input type="text" id="ip_address" placeholder="IP Address" value="192.168.0.20:8080"
+                                    style=" font-size: 4rem;">
+                                <br>
+                                <button id="btn_connect"
+                                    style="width: 10%;height: 5%; margin-top: 10px;">Connect</button>
                             </div>
 
                         </div>
@@ -230,37 +233,6 @@
 
 
     let intervalId = null;
-    const ip_address = document.getElementById('ip_address');
-
-
-    const ws = new WebSocket('ws://' + ip_address.value);
-
-    ws.onopen = () => {
-
-        console.log('WebSocket 連線成功');
-    };
-
-    ws.onmessage = (event) => {
-
-        console.log('收到訊息:', event.data);
-    };
-
-    ws.onclose = () => {
-        console.log('WebSocket 連線關閉');
-    };
-
-    function sendMessage(msg) {
-        if (ws.readyState !== WebSocket.CLOSED) {
-
-            ws.send(msg);
-            console.log(`送出：${msg}`);
-            return;
-        } else {
-            console.error('WebSocket 尚未連線，無法發送訊息');
-            return;
-        }
-
-    }
 
 
     const btn_ar_1 = document.getElementById('btn_ar_1');
@@ -280,9 +252,12 @@
     const span = document.getElementsByClassName("close")[0];
     const modal = document.getElementById("myModal");
 
+    const btn_connect = document.getElementById('btn_connect');
+
     btn_setting.onclick = function () {
         modal.style.display = "block";
     };
+
     span.onclick = function () {
         modal.style.display = "none";
     }
@@ -332,6 +307,69 @@
     btn_act_4.addEventListener('mouseleave', stopInterval);
     btn_act_6.addEventListener('mouseleave', stopInterval);
     btn_act_8.addEventListener('mouseleave', stopInterval);
+
+
+    var ws;
+
+    btn_connect.addEventListener('click', () => {
+
+        const ip_address = document.getElementById('ip_address');
+
+
+        ws = new WebSocket('ws://' + ip_address.value);
+
+        ws.onopen = () => {
+
+            console.log('WebSocket 連線成功');
+        };
+
+        ws.onmessage = (event) => {
+
+            console.log('收到訊息:', event.data);
+        };
+
+        ws.onclose = () => {
+            console.log('WebSocket 連線關閉');
+        };
+
+    });
+
+
+    function sendMessage(msg) {
+        if (ws.readyState !== WebSocket.CLOSED) {
+
+            ws.send(msg);
+            console.log(`送出：${msg}`);
+            return;
+        } else {
+            console.error('WebSocket 尚未連線，無法發送訊息');
+            return;
+        }
+    }
+
+
+
+
+
+
+
+
+    function sendMessage(msg) {
+        if (ws.readyState !== WebSocket.CLOSED) {
+
+            ws.send(msg);
+            console.log(`送出：${msg}`);
+            return;
+        } else {
+            console.error('WebSocket 尚未連線，無法發送訊息');
+            return;
+        }
+
+    }
+
+
+
+
 
 
     function connectSetting() {
