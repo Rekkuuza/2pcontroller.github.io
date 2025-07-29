@@ -151,7 +151,7 @@
                             <!-- Modal content -->
                             <div class="modal-content">
                                 <span class="close">&times;</span>
-                                <input type="text" id="ip_address" placeholder="IP Address" value="192.168.0.20:8080"
+                                <input type="text" id="ip_address" placeholder="IP Address" value="192.168.0.20:31000"
                                     style=" font-size: 4rem;">
                                 <br>
                                 <button id="btn_connect"
@@ -330,6 +330,10 @@
 
         ws.onclose = () => {
             console.log('WebSocket 連線關閉');
+        };
+
+        ws.onerror = (error) => {
+            console.error('WebSocket 發生錯誤:', error);
         };
 
     });

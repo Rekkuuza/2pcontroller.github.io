@@ -8,7 +8,7 @@ const robot = require("robotjs");
 
 
 const { WebSocketServer } = require('ws');
-const port = 8080;
+const port = 31000;
 
 const wss = new WebSocketServer({ port });
 
