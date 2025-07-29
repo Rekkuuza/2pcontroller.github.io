@@ -316,7 +316,7 @@
         const ip_address = document.getElementById('ip_address');
 
 
-        ws = new WebSocket('ws://' + ip_address.value);
+        ws = new WebSocket('wss://' + ip_address.value);
 
         ws.onopen = () => {
 

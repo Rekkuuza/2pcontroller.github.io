@@ -5,12 +5,32 @@ const os = require('os');
 const nets = os.networkInterfaces();
 const myIp = [];
 const robot = require("robotjs");
+const https = require('https');
+const fs = require('fs');
+const express = require('express')
+const app = express()
 
+app.get('/', (req, res) => {
 
+    res.send('WebSocket server is running');
+})
 const { WebSocketServer } = require('ws');
-const port = 31000;
 
-const wss = new WebSocketServer({ port });
+var processRequest = function (req, res) {
+
+    res.writeHead(200);
+    res.end('WebSocket server is running');
+};
+
+var httpsServer = https.createServer({
+    key: fs.readFileSync('./localhost+2-key.pem'),
+    cert: fs.readFileSync('./localhost+2.pem')
+}, processRequest).listen(31000);
+
+
+const wss = new WebSocketServer({
+    server: httpsServer
+});
 
 wss.on('connection', function connection(ws) {
     console.log('Client connected');
