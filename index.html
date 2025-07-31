@@ -315,11 +315,16 @@
 
         const ip_address = document.getElementById('ip_address');
 
+        if (ws && ws.readyState !== WebSocket.CLOSED) {
+            console.error('WebSocket 已經連線');
+            return;
+
+        }
 
         ws = new WebSocket('wss://' + ip_address.value);
 
-        ws.onopen = () => {
 
+        ws.onopen = () => {
             console.log('WebSocket 連線成功');
         };
 
@@ -334,43 +339,40 @@
 
         ws.onerror = (error) => {
             console.error('WebSocket 發生錯誤:', error);
+
+            if (error.message) {
+                console.error('Error message:', error.message);
+            }
+
+            if (error.target && error.target.readyState === WebSocket.CLOSED) {
+                console.error('WebSocket connection was closed unexpectedly.');
+            }
         };
 
     });
 
 
-    function sendMessage(msg) {
-        if (ws.readyState !== WebSocket.CLOSED) {
+    async function sendMessage(msg) {
 
-            ws.send(msg);
-            console.log(`送出：${msg}`);
-            return;
-        } else {
-            console.error('WebSocket 尚未連線，無法發送訊息');
-            return;
-        }
+        const ip_address = document.getElementById('ip_address');
+
+        fetch('http://' + ip_address.value + '/api/data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                key: msg
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response from server:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
-
-
-
-
-
-
-
-
-    function sendMessage(msg) {
-        if (ws.readyState !== WebSocket.CLOSED) {
-
-            ws.send(msg);
-            console.log(`送出：${msg}`);
-            return;
-        } else {
-            console.error('WebSocket 尚未連線，無法發送訊息');
-            return;
-        }
-
-    }
-
 
 
 
