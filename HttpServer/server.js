@@ -7,12 +7,14 @@ const os = require('os');
 const nets = os.networkInterfaces();
 const myIp = [];
 
-
+const fs = require('fs');
+const https = require('https');
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const port = 31000;
 const robot = require("robotjs");
+
 
 
 for (const name of Object.keys(nets)) {
@@ -26,6 +28,17 @@ for (const name of Object.keys(nets)) {
         }
     }
 }
+
+// 產生SSL
+// https://github.com/FiloSottile/mkcert
+const options = {
+    key: fs.readFileSync('./localhost+2-key.pem'),
+    cert: fs.readFileSync('./localhost+2.pem')
+};
+
+https.createServer(options, app).listen(port, () => {
+    console.log('Started!');
+});
 
 app.use(cors());
 // Middleware to parse JSON
