@@ -154,8 +154,7 @@
                                 <input type="text" id="ip_address" placeholder="IP Address" value="192.168.0.20:31000"
                                     style=" font-size: 4rem;">
                                 <br>
-                                <button id="btn_connect"
-                                    style="width: 10%;height: 5%; margin-top: 10px;">Connect</button>
+
                             </div>
 
                         </div>
@@ -212,28 +211,8 @@
 <script>
 
 
-
-    (function () {
-
-        function resize() {
-            var body = document.getElementsByTagName('body')[0];
-            var html = document.getElementsByTagName('html')[0];
-            var width = html.clientWidth;
-            var height = html.clientHeight;
-            var max = width > height ? width : height;
-            var min = width > height ? height : width;
-            body.style.width = max + 'px';
-            body.style.height = min + 'px';
-        }
-        resize();
-        window.addEventListener('resize', resize);
-
-
-    })();
-
-
-    let intervalId = null;
-
+    const mobile = ['Android', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'IEMobile'];
+    const isMobile = mobile.some(x => navigator.userAgent.includes(x));
 
     const btn_ar_1 = document.getElementById('btn_ar_1');
     const btn_ar_2 = document.getElementById('btn_ar_2');
@@ -247,141 +226,184 @@
     const btn_act_4 = document.getElementById('btn_act_4');
     const btn_act_6 = document.getElementById('btn_act_6');
     const btn_act_8 = document.getElementById('btn_act_8');
-
     const btn_setting = document.getElementById('btn_setting');
     const span = document.getElementsByClassName("close")[0];
     const modal = document.getElementById("myModal");
 
-    const btn_connect = document.getElementById('btn_connect');
-
-    btn_setting.onclick = function () {
-        modal.style.display = "block";
-    };
-
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    btn_ar_1.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('1'); }, 100); });
-    btn_ar_2.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('w'); }, 100); });
-    btn_ar_3.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('3'); }, 100); });
-    btn_ar_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('a'); }, 100); });
-    btn_ar_5.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('5'); }, 100); });
-    btn_ar_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('d'); }, 100); });
-    btn_ar_7.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('7'); }, 100); });
-    btn_ar_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('x'); }, 100); });
-    btn_ar_9.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('9'); }, 100); });
-    btn_act_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('d'); }, 100); });
-    btn_act_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('a'); }, 100); });
-    btn_act_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('j'); }, 100); });
-
-    btn_ar_1.addEventListener('mouseup', stopInterval);
-    btn_ar_2.addEventListener('mouseup', stopInterval);
-    btn_ar_3.addEventListener('mouseup', stopInterval);
-    btn_ar_4.addEventListener('mouseup', stopInterval);
-    btn_ar_5.addEventListener('mouseup', stopInterval);
-    btn_ar_6.addEventListener('mouseup', stopInterval);
-    btn_ar_7.addEventListener('mouseup', stopInterval);
-    btn_ar_8.addEventListener('mouseup', stopInterval);
-    btn_ar_9.addEventListener('mouseup', stopInterval);
-    btn_act_4.addEventListener('mouseup', stopInterval);
-    btn_act_6.addEventListener('mouseup', stopInterval);
-    btn_act_8.addEventListener('mouseup', stopInterval);
 
 
 
-    btn_ar_1.addEventListener('mouseleave', stopInterval);
-    btn_ar_2.addEventListener('mouseleave', stopInterval);
-    btn_ar_3.addEventListener('mouseleave', stopInterval);
-    btn_ar_4.addEventListener('mouseleave', stopInterval);
-    btn_ar_5.addEventListener('mouseleave', stopInterval);
-    btn_ar_6.addEventListener('mouseleave', stopInterval);
-    btn_ar_7.addEventListener('mouseleave', stopInterval);
-    btn_ar_8.addEventListener('mouseleave', stopInterval);
-    btn_ar_9.addEventListener('mouseleave', stopInterval);
-    btn_act_4.addEventListener('mouseleave', stopInterval);
-    btn_act_6.addEventListener('mouseleave', stopInterval);
-    btn_act_8.addEventListener('mouseleave', stopInterval);
 
 
-    var ws;
-
-    btn_connect.addEventListener('click', () => {
-
-        const ip_address = document.getElementById('ip_address');
-
-        if (ws && ws.readyState !== WebSocket.CLOSED) {
-            console.error('WebSocket 已經連線');
-            return;
-
-        }
-
-        ws = new WebSocket('wss://' + ip_address.value);
+    let intervalId = null;
 
 
-        ws.onopen = () => {
-            console.log('WebSocket 連線成功');
-        };
 
-        ws.onmessage = (event) => {
+    document.addEventListener("DOMContentLoaded", evt => {
+        // Do you stuff here
+        resize();
+        btn_setting.addEventListener('click', () => { modal.style.display = "block"; });
 
-            console.log('收到訊息:', event.data);
-        };
+        span.addEventListener('click', () => { modal.style.display = "none"; });
 
-        ws.onclose = () => {
-            console.log('WebSocket 連線關閉');
-        };
+        window.addEventListener('resize', resize);
 
-        ws.onerror = (error) => {
-            console.error('WebSocket 發生錯誤:', error);
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+                modal.style.display = "none";
 
-            if (error.message) {
-                console.error('Error message:', error.message);
             }
+        });
 
-            if (error.target && error.target.readyState === WebSocket.CLOSED) {
-                console.error('WebSocket connection was closed unexpectedly.');
-            }
-        };
+
+        // 這裡可以添加連接設定的邏輯
+        if (isMobile) {
+
+
+
+
+            btn_ar_1.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('1'); }, 100); });
+            btn_ar_2.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('w'); }, 100); });
+            btn_ar_3.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('3'); }, 100); });
+            btn_ar_4.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('a'); }, 100); });
+            btn_ar_5.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('5'); }, 100); });
+            btn_ar_6.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('d'); }, 100); });
+            btn_ar_7.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('7'); }, 100); });
+            btn_ar_8.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('x'); }, 100); });
+            btn_ar_9.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('9'); }, 100); });
+            btn_act_4.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('`'); }, 100); });
+            btn_act_6.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('s'); }, 100); });
+            btn_act_8.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('tab'); }, 100); });
+
+            btn_ar_1.addEventListener('touchend', stopInterval);
+            btn_ar_2.addEventListener('touchend', stopInterval);
+            btn_ar_3.addEventListener('touchend', stopInterval);
+            btn_ar_4.addEventListener('touchend', stopInterval);
+            btn_ar_5.addEventListener('touchend', stopInterval);
+            btn_ar_6.addEventListener('touchend', stopInterval);
+            btn_ar_7.addEventListener('touchend', stopInterval);
+            btn_ar_8.addEventListener('touchend', stopInterval);
+            btn_ar_9.addEventListener('touchend', stopInterval);
+            btn_act_4.addEventListener('touchend', stopInterval);
+            btn_act_6.addEventListener('touchend', stopInterval);
+            btn_act_8.addEventListener('touchend', stopInterval);
+
+
+
+            btn_ar_1.addEventListener('touchcancel', stopInterval);
+            btn_ar_2.addEventListener('touchcancel', stopInterval);
+            btn_ar_3.addEventListener('touchcancel', stopInterval);
+            btn_ar_4.addEventListener('touchcancel', stopInterval);
+            btn_ar_5.addEventListener('touchcancel', stopInterval);
+            btn_ar_6.addEventListener('touchcancel', stopInterval);
+            btn_ar_7.addEventListener('touchcancel', stopInterval);
+            btn_ar_8.addEventListener('touchcancel', stopInterval);
+            btn_ar_9.addEventListener('touchcancel', stopInterval);
+            btn_act_4.addEventListener('touchcancel', stopInterval);
+            btn_act_6.addEventListener('touchcancel', stopInterval);
+            btn_act_8.addEventListener('touchcancel', stopInterval);
+
+
+        } else {
+
+            btn_ar_1.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('1'); }, 100); });
+            btn_ar_2.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('w'); }, 100); });
+            btn_ar_3.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('3'); }, 100); });
+            btn_ar_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('a'); }, 100); });
+            btn_ar_5.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('5'); }, 100); });
+            btn_ar_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('d'); }, 100); });
+            btn_ar_7.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('7'); }, 100); });
+            btn_ar_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('x'); }, 100); });
+            btn_ar_9.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('9'); }, 100); });
+            btn_act_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('`'); }, 100); });
+            btn_act_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('s'); }, 100); });
+            btn_act_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('tab'); }, 100); });
+
+            btn_ar_1.addEventListener('mouseup', stopInterval);
+            btn_ar_2.addEventListener('mouseup', stopInterval);
+            btn_ar_3.addEventListener('mouseup', stopInterval);
+            btn_ar_4.addEventListener('mouseup', stopInterval);
+            btn_ar_5.addEventListener('mouseup', stopInterval);
+            btn_ar_6.addEventListener('mouseup', stopInterval);
+            btn_ar_7.addEventListener('mouseup', stopInterval);
+            btn_ar_8.addEventListener('mouseup', stopInterval);
+            btn_ar_9.addEventListener('mouseup', stopInterval);
+            btn_act_4.addEventListener('mouseup', stopInterval);
+            btn_act_6.addEventListener('mouseup', stopInterval);
+            btn_act_8.addEventListener('mouseup', stopInterval);
+
+
+
+            btn_ar_1.addEventListener('mouseleave', stopInterval);
+            btn_ar_2.addEventListener('mouseleave', stopInterval);
+            btn_ar_3.addEventListener('mouseleave', stopInterval);
+            btn_ar_4.addEventListener('mouseleave', stopInterval);
+            btn_ar_5.addEventListener('mouseleave', stopInterval);
+            btn_ar_6.addEventListener('mouseleave', stopInterval);
+            btn_ar_7.addEventListener('mouseleave', stopInterval);
+            btn_ar_8.addEventListener('mouseleave', stopInterval);
+            btn_ar_9.addEventListener('mouseleave', stopInterval);
+            btn_act_4.addEventListener('mouseleave', stopInterval);
+            btn_act_6.addEventListener('mouseleave', stopInterval);
+            btn_act_8.addEventListener('mouseleave', stopInterval);
+
+        }
 
     });
 
 
+    function resize() {
+        var body = document.getElementsByTagName('body')[0];
+        var html = document.getElementsByTagName('html')[0];
+        var width = html.clientWidth;
+        var height = html.clientHeight;
+        var max = width > height ? width : height;
+        var min = width > height ? height : width;
+        body.style.width = max + 'px';
+        body.style.height = min + 'px';
+    }
+
+
+
+
     async function sendMessage(msg) {
+
+        console.log('Sending message' + msg);
 
         const ip_address = document.getElementById('ip_address');
 
-        fetch('https://' + ip_address.value + '/api/data', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                key: msg
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Response from server:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        const data = JSON.stringify({ key: msg });
+
+        const blob = new Blob([data], { type: 'application/json' });
+
+
+        navigator.sendBeacon('https://' + ip_address.value + '/beacon', blob);
+
+
+
+
+        // fetch('https://' + ip_address.value + '/api/data', {
+        //     method: 'POST',
+        //     cache: "no-cache",
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         key: msg
+        //     })
+        // })
+        //     .then(response => response.json())
+        //     .catch(error => {
+        //         console.error('Error:', error);
+        //     })
+        //     .then(data => {
+        //         console.log('Response from server:', data);
+        //     });
+
     }
 
 
 
-
-
-    function connectSetting() {
-        // 這裡可以添加連接設定的邏輯
-        console.log('連接設定');
-    }
 
 
 

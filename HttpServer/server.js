@@ -40,19 +40,25 @@ https.createServer(options, app).listen(port, () => {
     console.log('Started!');
 });
 
-app.use(cors());
+const corsConfig = {
+    credentials: true,
+    origin: true,
+};
+
+app.use(cors(corsConfig));
 // Middleware to parse JSON
 app.use(express.json());
 
 // Handle POST request
-app.post('/api/data', (req, res) => {
+app.post('/beacon', (req, res) => {
     console.log('Received data:', req.body);
 
     //   https://github.com/octalmage/robotjs
-    robot.keyTap(req.body.key);
+    //   robot.keyTap(req.body.key);
+
+    res.sendStatus(204);
 
 
-    res.json({ code: 200 });
 });
 
 app.listen(port, () => {
