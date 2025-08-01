@@ -54,7 +54,7 @@ app.post('/beacon', (req, res) => {
     console.log('Received data:', req.body);
 
     //   https://github.com/octalmage/robotjs
-    //   robot.keyTap(req.body.key);
+    robot.keyTap(req.body.key);
 
     res.sendStatus(204);
 
