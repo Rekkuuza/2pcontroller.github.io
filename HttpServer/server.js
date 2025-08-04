@@ -32,8 +32,8 @@ for (const name of Object.keys(nets)) {
 // 產生SSL
 // https://github.com/FiloSottile/mkcert
 const options = {
-    key: fs.readFileSync('./localhost+2-key.pem'),
-    cert: fs.readFileSync('./localhost+2.pem')
+    key: fs.readFileSync('./server.key'),
+    cert: fs.readFileSync('./server.crt')
 };
 
 https.createServer(options, app).listen(port, () => {
@@ -48,6 +48,10 @@ const corsConfig = {
 app.use(cors(corsConfig));
 // Middleware to parse JSON
 app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.send('ON WORK!');
+});
 
 // Handle POST request
 app.post('/beacon', (req, res) => {

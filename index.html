@@ -45,25 +45,9 @@
             text-align: center;
         }
 
-        table {
-            width: 100%;
-            height: 100%;
-            margin: 0 auto;
-        }
 
 
-        td {
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
 
-        button {
-
-            background-color: transparent;
-            width: 100%;
-            height: 100%;
-        }
 
         /* The Modal (background) */
         .modal {
@@ -99,7 +83,7 @@
         }
 
         /* The Close Button */
-        .close {
+        /* .close {
             color: #aaaaaa;
             float: right;
             font-size: 28px;
@@ -111,29 +95,36 @@
             color: #000;
             text-decoration: none;
             cursor: pointer;
+        } */
+
+        input[type="radio"]:checked+label {
+            color: blue;
+            /* Change to your desired color */
         }
     </style>
 </head>
 
 <body>
     <div class="columns" style="display: flex; flex-direction: row; width: 100%; height: 100%;">
-        <div class="column" style="background-color:#aaa;">
+        <div class="column">
             <div>
-                <table>
+                <table style="width: 100%; height: 100%;">
                     <tr>
-                        <td><button id="btn_ar_1">1</button></td>
-                        <td><button id="btn_ar_2">2</button></td>
-                        <td><button id="btn_ar_3">3</button></td>
+                        <td><button id="btn_ar_1" style="font-size: 5em;height: 100%;width: 100%;">◤</button></td>
+                        <td><button id="btn_ar_2" style="font-size: 5em;height: 100%;width: 100%;">▲</button></td>
+                        <td><button id="btn_ar_3" style="font-size: 5em;height: 100%;width: 100%;">◥</button></td>
                     </tr>
                     <tr>
-                        <td><button id="btn_ar_4">4</button></td>
-                        <td><button id="btn_ar_5">5</button></td>
-                        <td><button id="btn_ar_6">6</button></td>
+                        <td><button id="btn_ar_4" style="font-size: 5em;height: 100%;width: 100%;">◀</button></td>
+                        <td><button id="btn_ar_5"
+                                style="color: red;font-weight: bold;font-size: 5em;height: 100%;width: 100%;">A</button>
+                        </td>
+                        <td><button id="btn_ar_6" style="font-size: 5em;height: 100%;width: 100%;">▶</button></td>
                     </tr>
                     <tr>
-                        <td><button id="btn_ar_7">7</button></td>
-                        <td><button id="btn_ar_8">8</button></td>
-                        <td><button id="btn_ar_9">9</button></td>
+                        <td><button id="btn_ar_7" style="font-size: 5em;height: 100%;width: 100%;">◣</button></td>
+                        <td><button id="btn_ar_8" style="font-size: 5em;height: 100%;width: 100%;">▼</button></td>
+                        <td><button id="btn_ar_9" style="font-size: 5em;height: 100%;width: 100%;">◢</button></td>
                     </tr>
 
                 </table>
@@ -141,64 +132,124 @@
         </div>
         <div class="column" style="background-color:#bbb;">
 
-            <table>
+            <table style="width: 100%; height: 100%;">
                 <tr>
-                    <td colspan="2">
-                        <button id="btn_setting" style="border: 0;width: auto; height: 3rem;font-size: 3rem">🎮</button>
+                    <td style="text-align: center;">
+                        <button id="btn_ip_setting"
+                            style="border: 0;width: auto; height: 3rem;font-size: 3rem;background-color: transparent;">📡</button>
                         <!-- The Modal -->
-                        <div id="myModal" class="modal">
+                        <div id="modal_ip_setting" class="modal">
 
                             <!-- Modal content -->
-                            <div class="modal-content">
-                                <span class="close">&times;</span>
-                                <input type="text" id="ip_address" placeholder="IP Address" value="192.168.0.20:31000"
-                                    style=" font-size: 4rem;">
-                                <br>
 
+                            <div class="modal-content">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 70%;">
+                                            <input type="text" id="ip_address" placeholder="IP Address"
+                                                value="192.168.0.20:31000" style=" font-size: 4rem; width: 100%;">
+                                        </td>
+                                        <td style="width: 10%; text-align: center;">
+                                            <button id="btn_ip_newpage"
+                                                style="font-size: 3em; background-color: transparent; border: none;width: 100%;">⎘</button>
+                                        </td>
+                                        <td style="width: 10%; text-align: center;">
+                                            <button id="btn_close_ip_setting"
+                                                style="font-size: 3em; background-color: transparent; border: none;width: 100%;">🞮</button>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
 
                         </div>
                     </td>
+                    <td style="text-align: center;">
+                        <button id="btn_game_setting" style=" border: 0;width: auto; height: 3rem;font-size:
+                            3rem;background-color: transparent;">🎮</button>
+                        <div id="modal_game_setting" class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content">
+
+                                <table>
+                                    <tr>
+                                        <td style="width: 25%;">
+                                            <div style="text-align: center;">
+                                                <input type="radio" id="player1" name="player" value="player1"
+                                                    style="font-size: 3em;">
+                                                <label for="player1" style="font-size: 3em;">P1</label>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center;width: 25%;">
+                                            <input type="radio" id="player2" name="player" value="player2"
+                                                style="font-size: 3em;">
+                                            <label for="player2" style="font-size: 3em;">P2</label>
+                                        </td>
+                                        <td style="text-align: center;width: 25%;">
+                                            <input type="radio" id="player3" name="player" value="player3"
+                                                style="font-size: 3em;">
+                                            <label for="player3" style="font-size: 3em;">P3</label>
+                                        </td>
+                                        <td style="text-align: center;width: 25%;">
+                                            <input type="radio" id="player4" name="player" value="player4"
+                                                style="font-size: 3em;">
+                                            <label for="player4" style="font-size: 3em;">P4</label>
+                                        </td>
+                                        <td style="text-align: center;width: 25%;">
+                                            <button id="btn_close_game_setting"
+                                                style="font-size: 3em; background-color: transparent; border: none;width: 100%;">🞮</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>2</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">2</td>
                 </tr>
                 <tr>
-                    <td>3</td>
-                    <td>4</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">4</td>
                 </tr>
                 <tr>
-                    <td>5</td>
-                    <td>6</td>
+                    <td style="text-align: center;">5</td>
+                    <td style="text-align: center;">6</td>
                 </tr>
                 <tr>
-                    <td>7</td>
-                    <td>8</td>
+                    <td style="text-align: center;">7</td>
+                    <td style="text-align: center;">8</td>
                 </tr>
 
             </table>
         </div>
         <div class="column" style="background-color:#ccc;">
-            <table>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td>
-                        <button id="btn_act_4">D</button>
+            <table style="width: 100%; height: 100%;">
+                <!-- <tr>
+                    <td><button></button></td>
+                    <td><button></button></td>
+                    <td><button></button></td>
+                </tr> -->
+                <tr style="height: 70%;">
+                    <td width="50%">
+                        <button id="btn_act_8"
+                            style="color: blue;font-weight: bold;height: 100%;font-size: 5em;width: 100%;">J</button>
                     </td>
-                    <td>5</td>
-                    <td>
-                        <button id="btn_act_6">A</button>
+                    <!-- <td><button></button></td> -->
+                    <td width="50%">
+                        <button id="btn_act_6"
+                            style="color: red;font-weight: bold;height: 100%;font-size: 5em;width: 100%;">A</button>
                     </td>
                 </tr>
-                <tr>
-                    <td>7</td>
-                    <td><button id="btn_act_8">J</button></td>
-                    <td>9</td>
+                <tr style="height: 30%;">
+
+                    <td colspan="2">
+
+                        <button id="btn_act_4"
+                            style="color: green;font-weight: bold;height: 100%;font-size: 5em; width: 100%;">D</button>
+                    </td>
+
                 </tr>
 
             </table>
@@ -226,10 +277,17 @@
     const btn_act_4 = document.getElementById('btn_act_4');
     const btn_act_6 = document.getElementById('btn_act_6');
     const btn_act_8 = document.getElementById('btn_act_8');
-    const btn_setting = document.getElementById('btn_setting');
-    const span = document.getElementsByClassName("close")[0];
-    const modal = document.getElementById("myModal");
 
+    const btn_ip_setting = document.getElementById('btn_ip_setting');
+    const btn_ip_newpage = document.getElementById('btn_ip_newpage');
+    const btn_close_ip_setting = document.getElementById('btn_close_ip_setting');
+    const modal_ip_setting = document.getElementById("modal_ip_setting");
+
+    const btn_game_setting = document.getElementById('btn_game_setting');
+    const btn_close_game_setting = document.getElementById('btn_close_game_setting');
+    const modal_game_setting = document.getElementById("modal_game_setting");
+
+    const timeInterval = 500;
 
 
 
@@ -242,16 +300,29 @@
     document.addEventListener("DOMContentLoaded", evt => {
         // Do you stuff here
         resize();
-        btn_setting.addEventListener('click', () => { modal.style.display = "block"; });
+        btn_ip_setting.addEventListener('click', () => { modal_ip_setting.style.display = "block"; });
+        btn_close_ip_setting.addEventListener('click', () => { modal_ip_setting.style.display = "none"; });
 
-        span.addEventListener('click', () => { modal.style.display = "none"; });
+        btn_game_setting.addEventListener('click', () => { modal_game_setting.style.display = "block"; });
+        btn_close_game_setting.addEventListener('click', () => { modal_game_setting.style.display = "none"; });
+
+        btn_ip_newpage.addEventListener('click', () => {
+            const ip_address = document.getElementById('ip_address');
+            const url = 'https://' + ip_address.value;
+
+            window.open(url, '_blank').focus();
+
+        });
 
         window.addEventListener('resize', resize);
 
         window.addEventListener('click', (event) => {
-            if (event.target == modal) {
-                modal.style.display = "none";
+            if (event.target == modal_ip_setting) {
+                modal_ip_setting.style.display = "none";
+            }
 
+            if (event.target == modal_game_setting) {
+                modal_game_setting.style.display = "none";
             }
         });
 
@@ -262,18 +333,18 @@
 
 
 
-            btn_ar_1.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('1'); }, 100); });
-            btn_ar_2.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('w'); }, 100); });
-            btn_ar_3.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('3'); }, 100); });
-            btn_ar_4.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('a'); }, 100); });
-            btn_ar_5.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('5'); }, 100); });
-            btn_ar_6.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('d'); }, 100); });
-            btn_ar_7.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('7'); }, 100); });
-            btn_ar_8.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('x'); }, 100); });
-            btn_ar_9.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('9'); }, 100); });
-            btn_act_4.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('`'); }, 100); });
-            btn_act_6.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('s'); }, 100); });
-            btn_act_8.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('tab'); }, 100); });
+            btn_ar_1.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('1'); }, timeInterval); });
+            btn_ar_2.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('w'); }, timeInterval); });
+            btn_ar_3.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('3'); }, timeInterval); });
+            btn_ar_4.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('a'); }, timeInterval); });
+            btn_ar_5.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('5'); }, timeInterval); });
+            btn_ar_6.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('d'); }, timeInterval); });
+            btn_ar_7.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('7'); }, timeInterval); });
+            btn_ar_8.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('x'); }, timeInterval); });
+            btn_ar_9.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('9'); }, timeInterval); });
+            btn_act_4.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('`'); }, timeInterval); });
+            btn_act_6.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('s'); }, timeInterval); });
+            btn_act_8.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('tab'); }, timeInterval); });
 
             btn_ar_1.addEventListener('touchend', stopInterval);
             btn_ar_2.addEventListener('touchend', stopInterval);
@@ -306,18 +377,18 @@
 
         } else {
 
-            btn_ar_1.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('1'); }, 100); });
-            btn_ar_2.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('w'); }, 100); });
-            btn_ar_3.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('3'); }, 100); });
-            btn_ar_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('a'); }, 100); });
-            btn_ar_5.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('5'); }, 100); });
-            btn_ar_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('d'); }, 100); });
-            btn_ar_7.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('7'); }, 100); });
-            btn_ar_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('x'); }, 100); });
-            btn_ar_9.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('9'); }, 100); });
-            btn_act_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('`'); }, 100); });
-            btn_act_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('s'); }, 100); });
-            btn_act_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('tab'); }, 100); });
+            btn_ar_1.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('1'); }, timeInterval); });
+            btn_ar_2.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('w'); }, timeInterval); });
+            btn_ar_3.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('3'); }, timeInterval); });
+            btn_ar_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('a'); }, timeInterval); });
+            btn_ar_5.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('5'); }, timeInterval); });
+            btn_ar_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('d'); }, timeInterval); });
+            btn_ar_7.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('7'); }, timeInterval); });
+            btn_ar_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('x'); }, timeInterval); });
+            btn_ar_9.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('9'); }, timeInterval); });
+            btn_act_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('`'); }, timeInterval); });
+            btn_act_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('s'); }, timeInterval); });
+            btn_act_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('tab'); }, timeInterval); });
 
             btn_ar_1.addEventListener('mouseup', stopInterval);
             btn_ar_2.addEventListener('mouseup', stopInterval);
