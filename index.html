@@ -175,24 +175,21 @@
                                     <tr>
                                         <td style="width: 25%;">
                                             <div style="text-align: center;">
-                                                <input type="radio" id="player1" name="player" value="player1"
-                                                    style="font-size: 3em;">
+                                                <input type="radio" id="player1" name="player" value="player1" checked
+                                                    hidden>
                                                 <label for="player1" style="font-size: 3em;">P1</label>
                                             </div>
                                         </td>
                                         <td style="text-align: center;width: 25%;">
-                                            <input type="radio" id="player2" name="player" value="player2"
-                                                style="font-size: 3em;">
+                                            <input type="radio" id="player2" name="player" value="player2" hidden>
                                             <label for="player2" style="font-size: 3em;">P2</label>
                                         </td>
                                         <td style="text-align: center;width: 25%;">
-                                            <input type="radio" id="player3" name="player" value="player3"
-                                                style="font-size: 3em;">
+                                            <input type="radio" id="player3" name="player" value="player3" hidden>
                                             <label for="player3" style="font-size: 3em;">P3</label>
                                         </td>
                                         <td style="text-align: center;width: 25%;">
-                                            <input type="radio" id="player4" name="player" value="player4"
-                                                style="font-size: 3em;">
+                                            <input type="radio" id="player4" name="player" value="player4" hidden>
                                             <label for="player4" style="font-size: 3em;">P4</label>
                                         </td>
                                         <td style="text-align: center;width: 25%;">
@@ -289,11 +286,17 @@
 
     const timeInterval = 500;
 
-
-
-
-
     let intervalId = null;
+
+
+    let c_up = 'w';
+    let c_down = 'x';
+    let c_left = 'a';
+    let c_right = 'd';
+    let c_defend = '`';
+    let c_attack = 's';
+    let c_jump = 'tab';
+
 
 
 
@@ -327,98 +330,62 @@
         });
 
 
+
+        let start_down = 'mousedown';
+        let end_up = 'mouseup';
+        let cancel_leave = 'mouseleave';
+
+
         // 這裡可以添加連接設定的邏輯
         if (isMobile) {
+            start_down = 'touchstart';
+            end_up = 'touchend';
+            cancel_leave = 'touchcancel'
+
+        };
 
 
 
+        btn_ar_1.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('1'); }, timeInterval); });
+        btn_ar_2.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage(c_up); }, timeInterval); });
+        btn_ar_3.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('3'); }, timeInterval); });
+        btn_ar_4.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage(c_left); }, timeInterval); });
+        btn_ar_5.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage(c_attack); }, timeInterval); });
+        btn_ar_6.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage(c_right); }, timeInterval); });
+        btn_ar_7.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('7'); }, timeInterval); });
+        btn_ar_8.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage(c_down); }, timeInterval); });
+        btn_ar_9.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('9'); }, timeInterval); });
+        btn_act_4.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage(c_defend); }, timeInterval); });
+        btn_act_6.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage(c_attack); }, timeInterval); });
+        btn_act_8.addEventListener(start_down, e => { e.preventDefault; intervalId = setInterval(() => { sendMessage(c_jump); }, timeInterval); });
 
-            btn_ar_1.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('1'); }, timeInterval); });
-            btn_ar_2.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('w'); }, timeInterval); });
-            btn_ar_3.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('3'); }, timeInterval); });
-            btn_ar_4.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('a'); }, timeInterval); });
-            btn_ar_5.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('5'); }, timeInterval); });
-            btn_ar_6.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('d'); }, timeInterval); });
-            btn_ar_7.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('7'); }, timeInterval); });
-            btn_ar_8.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('x'); }, timeInterval); });
-            btn_ar_9.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('9'); }, timeInterval); });
-            btn_act_4.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('`'); }, timeInterval); });
-            btn_act_6.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('s'); }, timeInterval); });
-            btn_act_8.addEventListener('touchstart', e => { e.preventDefault; intervalId = setInterval(() => { sendMessage('tab'); }, timeInterval); });
+        btn_ar_1.addEventListener(end_up, stopInterval);
+        btn_ar_2.addEventListener(end_up, stopInterval);
+        btn_ar_3.addEventListener(end_up, stopInterval);
+        btn_ar_4.addEventListener(end_up, stopInterval);
+        btn_ar_5.addEventListener(end_up, stopInterval);
+        btn_ar_6.addEventListener(end_up, stopInterval);
+        btn_ar_7.addEventListener(end_up, stopInterval);
+        btn_ar_8.addEventListener(end_up, stopInterval);
+        btn_ar_9.addEventListener(end_up, stopInterval);
+        btn_act_4.addEventListener(end_up, stopInterval);
+        btn_act_6.addEventListener(end_up, stopInterval);
+        btn_act_8.addEventListener(end_up, stopInterval);
 
-            btn_ar_1.addEventListener('touchend', stopInterval);
-            btn_ar_2.addEventListener('touchend', stopInterval);
-            btn_ar_3.addEventListener('touchend', stopInterval);
-            btn_ar_4.addEventListener('touchend', stopInterval);
-            btn_ar_5.addEventListener('touchend', stopInterval);
-            btn_ar_6.addEventListener('touchend', stopInterval);
-            btn_ar_7.addEventListener('touchend', stopInterval);
-            btn_ar_8.addEventListener('touchend', stopInterval);
-            btn_ar_9.addEventListener('touchend', stopInterval);
-            btn_act_4.addEventListener('touchend', stopInterval);
-            btn_act_6.addEventListener('touchend', stopInterval);
-            btn_act_8.addEventListener('touchend', stopInterval);
-
-
-
-            btn_ar_1.addEventListener('touchcancel', stopInterval);
-            btn_ar_2.addEventListener('touchcancel', stopInterval);
-            btn_ar_3.addEventListener('touchcancel', stopInterval);
-            btn_ar_4.addEventListener('touchcancel', stopInterval);
-            btn_ar_5.addEventListener('touchcancel', stopInterval);
-            btn_ar_6.addEventListener('touchcancel', stopInterval);
-            btn_ar_7.addEventListener('touchcancel', stopInterval);
-            btn_ar_8.addEventListener('touchcancel', stopInterval);
-            btn_ar_9.addEventListener('touchcancel', stopInterval);
-            btn_act_4.addEventListener('touchcancel', stopInterval);
-            btn_act_6.addEventListener('touchcancel', stopInterval);
-            btn_act_8.addEventListener('touchcancel', stopInterval);
+        btn_ar_1.addEventListener(cancel_leave, stopInterval);
+        btn_ar_2.addEventListener(cancel_leave, stopInterval);
+        btn_ar_3.addEventListener(cancel_leave, stopInterval);
+        btn_ar_4.addEventListener(cancel_leave, stopInterval);
+        btn_ar_5.addEventListener(cancel_leave, stopInterval);
+        btn_ar_6.addEventListener(cancel_leave, stopInterval);
+        btn_ar_7.addEventListener(cancel_leave, stopInterval);
+        btn_ar_8.addEventListener(cancel_leave, stopInterval);
+        btn_ar_9.addEventListener(cancel_leave, stopInterval);
+        btn_act_4.addEventListener(cancel_leave, stopInterval);
+        btn_act_6.addEventListener(cancel_leave, stopInterval);
+        btn_act_8.addEventListener(cancel_leave, stopInterval);
 
 
-        } else {
-
-            btn_ar_1.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('1'); }, timeInterval); });
-            btn_ar_2.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('w'); }, timeInterval); });
-            btn_ar_3.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('3'); }, timeInterval); });
-            btn_ar_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('a'); }, timeInterval); });
-            btn_ar_5.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('5'); }, timeInterval); });
-            btn_ar_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('d'); }, timeInterval); });
-            btn_ar_7.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('7'); }, timeInterval); });
-            btn_ar_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('x'); }, timeInterval); });
-            btn_ar_9.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('9'); }, timeInterval); });
-            btn_act_4.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('`'); }, timeInterval); });
-            btn_act_6.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('s'); }, timeInterval); });
-            btn_act_8.addEventListener('mousedown', () => { intervalId = setInterval(() => { sendMessage('tab'); }, timeInterval); });
-
-            btn_ar_1.addEventListener('mouseup', stopInterval);
-            btn_ar_2.addEventListener('mouseup', stopInterval);
-            btn_ar_3.addEventListener('mouseup', stopInterval);
-            btn_ar_4.addEventListener('mouseup', stopInterval);
-            btn_ar_5.addEventListener('mouseup', stopInterval);
-            btn_ar_6.addEventListener('mouseup', stopInterval);
-            btn_ar_7.addEventListener('mouseup', stopInterval);
-            btn_ar_8.addEventListener('mouseup', stopInterval);
-            btn_ar_9.addEventListener('mouseup', stopInterval);
-            btn_act_4.addEventListener('mouseup', stopInterval);
-            btn_act_6.addEventListener('mouseup', stopInterval);
-            btn_act_8.addEventListener('mouseup', stopInterval);
-
-
-
-            btn_ar_1.addEventListener('mouseleave', stopInterval);
-            btn_ar_2.addEventListener('mouseleave', stopInterval);
-            btn_ar_3.addEventListener('mouseleave', stopInterval);
-            btn_ar_4.addEventListener('mouseleave', stopInterval);
-            btn_ar_5.addEventListener('mouseleave', stopInterval);
-            btn_ar_6.addEventListener('mouseleave', stopInterval);
-            btn_ar_7.addEventListener('mouseleave', stopInterval);
-            btn_ar_8.addEventListener('mouseleave', stopInterval);
-            btn_ar_9.addEventListener('mouseleave', stopInterval);
-            btn_act_4.addEventListener('mouseleave', stopInterval);
-            btn_act_6.addEventListener('mouseleave', stopInterval);
-            btn_act_8.addEventListener('mouseleave', stopInterval);
-
-        }
 
     });
 
@@ -474,7 +441,51 @@
     }
 
 
+    const radioButtons = document.querySelectorAll('input[type="radio"][name="player"]');
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('change', function () {
 
+            console.log('Player changed to: ' + this.value);
+
+            switch (this.value) {
+                case 'player1':
+                    c_up = 'w';
+                    c_down = 'x';
+                    c_left = 'a';
+                    c_right = 'd';
+                    c_defend = '`';
+                    c_attack = 's';
+                    c_jump = 'tab';
+                    break;
+                case 'player2':
+                    c_up = 'numpad_8';
+                    c_down = 'numpad_2';
+                    c_left = 'numpad_4';
+                    c_right = 'numpad_6';
+                    c_defend = 'numpad_+';
+                    c_attack = 'numpad_5';
+                    c_jump = 'numpad_0';
+                    break;
+                case 'player3':
+                    c_up = 'up';
+                    c_down = 'down';
+                    c_left = 'left';
+                    c_right = 'right';
+                    c_defend = 'enter';
+                    c_attack = "'";
+                    c_jump = "\\";
+                    break;
+                case 'player4':
+                    c_up = 'i'; // 上
+                    c_down = ','; // 下
+                    c_left = 'j'; // 左
+                    c_right = 'l'; // 右
+                    c_defend = '.'; // 防禦
+                    c_attack = 'k'; // 攻擊
+                    c_jump = 'space'; // 跳躍
+            }
+        });
+    });
 
 
 
