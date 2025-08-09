@@ -302,7 +302,9 @@
     let c_defend = '`';
     let c_attack = 's';
     let c_jump = 'tab';
-
+    let start_down = 'touchstart';
+    let end_up = 'touchend';
+    let cancel_leave = 'touchcancel';
 
 
     document.addEventListener("DOMContentLoaded", evt => {
@@ -344,9 +346,7 @@
 
 
 
-        let start_down = 'mousedown';
-        let end_up = 'mouseup';
-        let cancel_leave = 'mouseleave';
+
 
 
         // 這裡可以添加連接設定的邏輯
@@ -355,7 +355,11 @@
             end_up = 'touchend';
             cancel_leave = 'touchcancel'
 
-        };
+        } else {
+            start_down = 'mousedown';
+            end_up = 'mouseup';
+            cancel_leave = 'mouseleave';
+        }
 
 
 
