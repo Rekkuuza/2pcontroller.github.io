@@ -264,7 +264,6 @@
 
 
     const mobile = ['Android', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'IEMobile'];
-    const isMobile = mobile.some(x => navigator.userAgent.includes(x));
 
     const btn_ar_1 = document.getElementById('btn_ar_1');
     const btn_ar_2 = document.getElementById('btn_ar_2');
@@ -290,7 +289,7 @@
 
     const btn_full_screen = document.getElementById("btn_full_screen");
 
-    const timeInterval = 500;
+    const timeInterval = 200;
 
     let intervalId = null;
 
@@ -347,6 +346,7 @@
 
 
 
+        const isMobile = mobile.some(x => navigator.userAgent.includes(x));
 
 
         // 這裡可以添加連接設定的邏輯
