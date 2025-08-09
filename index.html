@@ -136,7 +136,7 @@
                 <tr>
                     <td style="text-align: center;">
                         <button id="btn_ip_setting"
-                            style="border: 0;width: auto; height: 3rem;font-size: 3rem;background-color: transparent;">📡</button>
+                            style="border: 0;width: auto; height: 3rem;font-size: 3rem;background-color: transparent;">🌐</button>
                         <!-- The Modal -->
                         <div id="modal_ip_setting" class="modal">
 
@@ -162,6 +162,10 @@
                             </div>
 
                         </div>
+                    </td>
+                    <td style="text-align: center;">
+                        <button id="btn_full_screen"
+                            style="border: 0;width: auto; height: 3rem;font-size: 3rem;background-color: transparent;">⛶</button>
                     </td>
                     <td style="text-align: center;">
                         <button id="btn_game_setting" style=" border: 0;width: auto; height: 3rem;font-size:
@@ -284,6 +288,8 @@
     const btn_close_game_setting = document.getElementById('btn_close_game_setting');
     const modal_game_setting = document.getElementById("modal_game_setting");
 
+    const btn_full_screen = document.getElementById("btn_full_screen");
+
     const timeInterval = 500;
 
     let intervalId = null;
@@ -299,7 +305,6 @@
 
 
 
-
     document.addEventListener("DOMContentLoaded", evt => {
         // Do you stuff here
         resize();
@@ -308,6 +313,14 @@
 
         btn_game_setting.addEventListener('click', () => { modal_game_setting.style.display = "block"; });
         btn_close_game_setting.addEventListener('click', () => { modal_game_setting.style.display = "none"; });
+
+        btn_full_screen.addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                document.documentElement.requestFullscreen();
+            }
+        });
 
         btn_ip_newpage.addEventListener('click', () => {
             const ip_address = document.getElementById('ip_address');
